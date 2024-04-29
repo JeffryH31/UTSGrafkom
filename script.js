@@ -6,6 +6,20 @@ function main() {
   CANVAS.height = window.innerHeight;
 
 
+//   var autoTranslate = function(time) {
+//     var t = time * 0.003; // Convert time to seconds
+    
+//     // Calculate translation values based on time
+//     translateX= 0 // Oscillate translation along the x-axis
+//     translateY = Math.sin(t) * 5; // Keep translation along the y-axis constant
+//     translateZ = 0 // Keep translation along the z-axis constant
+//     // Request the next animation frame
+//     window.requestAnimationFrame(autoTranslate);
+// }
+
+// // Start the animation loop
+// autoTranslate(0);
+
   var drag = false;
   var dX = 0;
   var dY = 0;
@@ -20,6 +34,14 @@ function main() {
 
 
   var FRICTION = 0.2;
+
+//   var translateX = 0;
+// var translateY = 0;
+// var translateZ = 0;
+
+// var rotateX = 0;
+// var rotateY = 0;
+// var rotateZ = 0;
 
 
   var mouseDown = function (e) {
@@ -186,20 +208,10 @@ function main() {
   // autoRotate(rightHand, 0);
 
 
-  var rightFootA = new MyObject(
-    createSphere(2.3, -8.1, 1.2, 1.2, 2, 1.2, 100, 100, 0.529, 0.808, 0.922).positions,
-    createSphere(2, 2, 2, 3, 1.25, 0.5, 100, 100, 0, 1, 0).indices,
-    shader_vertex_source,
-    shader_fragment_source
-  );
-  rightFootA.setup();
-  var leftFootA = new MyObject(
-    createSphere(-2.3, -8.1, 1.2, 1.2, 2, 1.2, 100, 100, 0.529, 0.808, 0.922).positions,
-    createSphere(2, 2, 2, 3, 1.25, 0.5, 100, 100, 0, 1, 0).indices,
-    shader_vertex_source,
-    shader_fragment_source
-  );
-  leftFootA.setup();
+  var rightFootA = new MyObject(tabungVertices(2, -9.8, 1, 1, 1, 3, 0.529,0.808,0.922),
+  tabungIndices(), shader_vertex_source,shader_fragment_source);rightFootA.setup();
+  var leftFootA = new MyObject(tabungVertices(-2, -9.8, 1, 1, 1, 3, 0.529,0.808,0.922),
+    tabungIndices(),shader_vertex_source,shader_fragment_source);leftFootA.setup();
 
   var leftEyeA = new MyObject(
     createSphere(-1.3, 0.5, 2.1, 0.7, 1, 0.7, 100, 100, 0, 0, 0).positions,
@@ -631,6 +643,13 @@ function main() {
 
       LIBS.rotateY(MODEL_MATRIX2, THETA);
       LIBS.rotateX(MODEL_MATRIX2, ALPHA);
+
+      // LIBS.rotateY(MODEL_MATRIX, rotateY);
+      //   LIBS.rotateX(MODEL_MATRIX, rotateX);
+      //   LIBS.rotateZ(MODEL_MATRIX, rotateZ);
+      //   LIBS.translateX(MODEL_MATRIX, translateX);
+      //   LIBS.translateY(MODEL_MATRIX, translateY);
+      //   LIBS.translateZ(MODEL_MATRIX, translateZ);
       // Kevin
       main.MODEL_MATRIX = MODEL_MATRIX;
       body.MODEL_MATRIX = MODEL_MATRIX;
@@ -929,11 +948,6 @@ function main() {
         if (rightFootRotationX <= 0) {
           rightFootDirection = false;
         }
-      }
-      if(stopWalking){
-        
-      leftFootJ.MODEL_MATRIX = MODEL_MATRIX;
-      rightFootJ.MODEL_MATRIX = MODEL_MATRIX;
       }
     }
 

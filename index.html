@@ -1,20 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Grafkom</title>
     <style>
-        body{
+        body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
             min-width: 100vw;
-            overflow: hidden;
+            overflow-x: hidden;
+        }
+
+        .intro {
+            min-height: 100vh;
+            min-width: 100vw;
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        #myCanvas {
+            min-height: 100vh;
+            min-width: 100vw;
         }
     </style>
 </head>
+
 <body>
+    <section class="intro">
+        <p>UTS GRAFKOM KEL 15</p>
+        <p>Andreas Harry Pitana - C14220041</p>
+        <p>Jeffry Hermawan - C14220139</p>
+        <p>Kevin Gunawan - C14220336</p>
+        <p></p>
+    </section>
     <canvas id="myCanvas" width="1536" height="804"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/gl-matrix@3.4.3/gl-matrix-min.min.js"></script>
     <script src="libs.js"></script>
@@ -22,4 +49,5 @@
     <script src="functions.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

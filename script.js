@@ -644,12 +644,13 @@ function main() {
       LIBS.rotateY(MODEL_MATRIX2, THETA);
       LIBS.rotateX(MODEL_MATRIX2, ALPHA);
 
-      // LIBS.rotateY(MODEL_MATRIX, rotateY);
-      //   LIBS.rotateX(MODEL_MATRIX, rotateX);
-      //   LIBS.rotateZ(MODEL_MATRIX, rotateZ);
-      //   LIBS.translateX(MODEL_MATRIX, translateX);
-      //   LIBS.translateY(MODEL_MATRIX, translateY);
-      //   LIBS.translateZ(MODEL_MATRIX, translateZ);
+      LIBS.rotateY(MODEL_MATRIX, rotateY);
+        LIBS.rotateX(MODEL_MATRIX, rotateX);
+        LIBS.rotateZ(MODEL_MATRIX, rotateZ);
+        LIBS.translateX(MODEL_MATRIX, translateX);
+        LIBS.translateY(MODEL_MATRIX, translateY);
+        LIBS.translateZ(MODEL_MATRIX, translateZ);
+        
       // Kevin
       main.MODEL_MATRIX = MODEL_MATRIX;
       body.MODEL_MATRIX = MODEL_MATRIX;

@@ -186,20 +186,10 @@ function main() {
   // autoRotate(rightHand, 0);
 
 
-  var rightFootA = new MyObject(
-      createSphere(2.3, -8.1, 1.2, 1.2, 2, 1.2, 100, 100, 0.529, 0.808, 0.922).positions,
-      createSphere(2, 2, 2, 3, 1.25, 0.5, 100, 100, 0, 1, 0).indices,
-      shader_vertex_source,
-      shader_fragment_source
-  );
-  rightFootA.setup();
-  var leftFootA = new MyObject(
-      createSphere(-2.3, -8.1, 1.2, 1.2, 2, 1.2, 100, 100, 0.529, 0.808, 0.922).positions,
-      createSphere(2, 2, 2, 3, 1.25, 0.5, 100, 100, 0, 1, 0).indices,
-      shader_vertex_source,
-      shader_fragment_source
-  );
-  leftFootA.setup();
+  var rightFootA = new MyObject(tabungVertices(2, -9.8, 1, 1, 1, 3, 0.529,0.808,0.922),
+  tabungIndices(), shader_vertex_source,shader_fragment_source);rightFootA.setup();
+  var leftFootA = new MyObject(tabungVertices(-2, -9.8, 1, 1, 1, 3, 0.529,0.808,0.922),
+    tabungIndices(),shader_vertex_source,shader_fragment_source);leftFootA.setup();
 
   var leftEyeA = new MyObject(
       createSphere(-1.3, 0.5, 2.1, 0.7, 1, 0.7, 100, 100, 0, 0, 0).positions,

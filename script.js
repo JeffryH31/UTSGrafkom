@@ -6,19 +6,19 @@ function main() {
   CANVAS.height = window.innerHeight;
 
 
-//   var autoTranslate = function(time) {
-//     var t = time * 0.003; // Convert time to seconds
-    
-//     // Calculate translation values based on time
-//     translateX= 0 // Oscillate translation along the x-axis
-//     translateY = Math.sin(t) * 5; // Keep translation along the y-axis constant
-//     translateZ = 0 // Keep translation along the z-axis constant
-//     // Request the next animation frame
-//     window.requestAnimationFrame(autoTranslate);
-// }
+  //   var autoTranslate = function(time) {
+  //     var t = time * 0.003; // Convert time to seconds
 
-// // Start the animation loop
-// autoTranslate(0);
+  //     // Calculate translation values based on time
+  //     translateX= 0 // Oscillate translation along the x-axis
+  //     translateY = Math.sin(t) * 5; // Keep translation along the y-axis constant
+  //     translateZ = 0 // Keep translation along the z-axis constant
+  //     // Request the next animation frame
+  //     window.requestAnimationFrame(autoTranslate);
+  // }
+
+  // // Start the animation loop
+  // autoTranslate(0);
 
   var drag = false;
   var dX = 0;
@@ -35,13 +35,13 @@ function main() {
 
   var FRICTION = 0.2;
 
-//   var translateX = 0;
-// var translateY = 0;
-// var translateZ = 0;
+  //   var translateX = 0;
+  // var translateY = 0;
+  // var translateZ = 0;
 
-// var rotateX = 0;
-// var rotateY = 0;
-// var rotateZ = 0;
+  // var rotateX = 0;
+  // var rotateY = 0;
+  // var rotateZ = 0;
 
 
   var mouseDown = function (e) {
@@ -128,6 +128,7 @@ function main() {
 
 
   LIBS.translateZ(VIEW_MATRIX, -110);
+  LIBS.translateY(VIEW_MATRIX, -10);
 
 
   var main = new MyObject(bola(-20, 0, 0, 3, 2.8, 3, 100, 100, 1, 0.9882352941176471, 0.01568627450980392).vertis, bola(0, 0, 0, 2, 2, 2, 100, 100, 0, 0, 0).indices, shader_vertex_source, shader_fragment_source);
@@ -208,10 +209,10 @@ function main() {
   // autoRotate(rightHand, 0);
 
 
-  var rightFootA = new MyObject(tabungVertices(2, -9.8, 1, 1, 1, 3, 0.529,0.808,0.922),
-  tabungIndices(), shader_vertex_source,shader_fragment_source);rightFootA.setup();
-  var leftFootA = new MyObject(tabungVertices(-2, -9.8, 1, 1, 1, 3, 0.529,0.808,0.922),
-    tabungIndices(),shader_vertex_source,shader_fragment_source);leftFootA.setup();
+  var rightFootA = new MyObject(tabungVertices(2, -9.8, 1, 1, 1, 3, 0.529, 0.808, 0.922),
+    tabungIndices(), shader_vertex_source, shader_fragment_source); rightFootA.setup();
+  var leftFootA = new MyObject(tabungVertices(-2, -9.8, 1, 1, 1, 3, 0.529, 0.808, 0.922),
+    tabungIndices(), shader_vertex_source, shader_fragment_source); leftFootA.setup();
 
   var leftEyeA = new MyObject(
     createSphere(-1.3, 0.5, 2.1, 0.7, 1, 0.7, 100, 100, 0, 0, 0).positions,
@@ -453,7 +454,7 @@ function main() {
   var rightFootJ = new MyObject(temp.vertex, temp.faces, shader_vertex_source, shader_fragment_source);
   rightFootJ.setup();
 
-  temp = createCone(25, -6, -2.5, 2, -7, 72, 255, 189, 59);
+  temp = createCone(25, -6, -2.5, 2, -7, 36, 255, 189, 59);
   var tailJ = new MyObject(temp.vertex, temp.faces, shader_vertex_source, shader_fragment_source);
   tailJ.setup();
 
@@ -517,6 +518,17 @@ function main() {
   var treeBush10 = new MyObject(temp.vertex, temp.faces, shader_vertex_source, shader_fragment_source);
   treeBush10.setup();
 
+  temp = createSphere2(7, 255, 255, 9, 0, 35, -100, 1, 1, 1);
+  var sun = new MyObject(temp.vertex, temp.faces, shader_vertex_source, shader_fragment_source);
+  sun.setup();
+
+  temp = createCone(-30, 80, -13, 40, 50, 36, 111, 88, 70);
+  var mount1 = new MyObject(temp.vertex, temp.faces, shader_vertex_source, shader_fragment_source);
+  mount1.setup();
+
+  temp = createCone(30, 80, -13, 40, 50, 36, 111, 88, 70);
+  var mount2 = new MyObject(temp.vertex, temp.faces, shader_vertex_source, shader_fragment_source);
+  mount2.setup();
 
   // KG
   if (true) {
@@ -587,6 +599,9 @@ function main() {
   tree1.child.push(treeBush8);
   tree1.child.push(treeBush9);
   tree1.child.push(treeBush10);
+  tree1.child.push(sun);
+  tree1.child.push(mount1);
+  tree1.child.push(mount2);
 
   GL.clearColor(185 / 255, 235 / 255, 250 / 255, 1);
 
@@ -619,6 +634,10 @@ function main() {
   var jumpStatus = false;
   var stopJumping = false;
 
+  var sunScale = 1;
+  var sunDirection = false;
+
+
   var animate = function (time) {
     if (time > 0) {
       GL.viewport(0, 0, CANVAS.width, CANVAS.height);
@@ -644,12 +663,17 @@ function main() {
       LIBS.rotateY(MODEL_MATRIX2, THETA);
       LIBS.rotateX(MODEL_MATRIX2, ALPHA);
 
+
+
+
       // LIBS.rotateY(MODEL_MATRIX, rotateY);
       //   LIBS.rotateX(MODEL_MATRIX, rotateX);
       //   LIBS.rotateZ(MODEL_MATRIX, rotateZ);
       //   LIBS.translateX(MODEL_MATRIX, translateX);
       //   LIBS.translateY(MODEL_MATRIX, translateY);
       //   LIBS.translateZ(MODEL_MATRIX, translateZ);
+
+
       // Kevin
       main.MODEL_MATRIX = MODEL_MATRIX;
       body.MODEL_MATRIX = MODEL_MATRIX;
@@ -701,6 +725,40 @@ function main() {
       LEFT_FOOT_MATRIX = LIBS.get_I4();
       RIGHT_FOOT_MATRIX = LIBS.get_I4();
       LEFT_HAND_MATRIX = LIBS.get_I4();
+      MOUNT1_MATRIX = LIBS.get_I4();
+      MOUNT2_MATRIX = LIBS.get_I4();
+      SUN_MATRIX = LIBS.get_I4();
+
+
+      LIBS.rotateY(LEFT_EYE_MATRIX, THETA);
+      LIBS.rotateX(LEFT_EYE_MATRIX, ALPHA);
+
+      LIBS.rotateY(RIGHT_EYE_MATRIX, THETA);
+      LIBS.rotateX(RIGHT_EYE_MATRIX, ALPHA);
+
+      LIBS.rotateY(LEFT_EYE_BALL_MATRIX, THETA);
+      LIBS.rotateX(LEFT_EYE_BALL_MATRIX, ALPHA);
+
+      LIBS.rotateY(RIGHT_EYE_BALL_MATRIX, THETA);
+      LIBS.rotateX(RIGHT_EYE_BALL_MATRIX, ALPHA);
+
+      LIBS.rotateY(LEFT_FOOT_MATRIX, THETA);
+      LIBS.rotateX(LEFT_FOOT_MATRIX, ALPHA);
+
+      LIBS.rotateY(RIGHT_FOOT_MATRIX, THETA);
+      LIBS.rotateX(RIGHT_FOOT_MATRIX, ALPHA);
+
+      LIBS.rotateY(LEFT_HAND_MATRIX, THETA);
+      LIBS.rotateX(LEFT_HAND_MATRIX, ALPHA);
+
+      LIBS.rotateY(MOUNT1_MATRIX, THETA);
+      LIBS.rotateX(MOUNT1_MATRIX, ALPHA);
+
+      LIBS.rotateY(MOUNT2_MATRIX, THETA);
+      LIBS.rotateX(MOUNT2_MATRIX, ALPHA);
+
+      LIBS.rotateY(SUN_MATRIX, THETA);
+      LIBS.rotateX(SUN_MATRIX, ALPHA);
 
       headJ.MODEL_MATRIX = MODEL_MATRIX;
       headJ.model(MODEL_MATRIX);
@@ -717,6 +775,7 @@ function main() {
       tailJ.MODEL_MATRIX = MODEL_MATRIX;
 
       // Environment
+
       tree1.MODEL_MATRIX = MODEL_MATRIX2;
       treeBush1.MODEL_MATRIX = MODEL_MATRIX2;
       treeBush2.MODEL_MATRIX = MODEL_MATRIX2;
@@ -729,9 +788,29 @@ function main() {
       treeBush8.MODEL_MATRIX = MODEL_MATRIX2;
       treeBush9.MODEL_MATRIX = MODEL_MATRIX2;
       treeBush10.MODEL_MATRIX = MODEL_MATRIX2;
+      sun.MODEL_MATRIX = SUN_MATRIX;
+      mount1.MODEL_MATRIX = MOUNT1_MATRIX;
+      mount2.MODEL_MATRIX = MOUNT2_MATRIX;
 
 
       time_prev = time;
+    }
+
+    if (time > 500) {
+      if (sunScale >= 1) {
+        LIBS.scalling(sun.MODEL_MATRIX, sunScale, sunScale, sunScale);
+        sunScale -= 0.005;
+        if (sunScale <= 0.65) {
+          sunDirection = true;
+        }
+      }
+      if (sunDirection) {
+        LIBS.scalling(sun.MODEL_MATRIX, sunScale, sunScale, sunScale);
+        sunScale += 0.005;
+        if (sunScale >= 1) {
+          sunDirection = true;
+        }
+      }
     }
 
     if (time > 1000 && time <= 3000) {
@@ -949,7 +1028,15 @@ function main() {
           rightFootDirection = false;
         }
       }
+      if (stopWalking) {
+
+        leftFootJ.MODEL_MATRIX = MODEL_MATRIX;
+        rightFootJ.MODEL_MATRIX = MODEL_MATRIX;
+      }
     }
+
+    glMatrix.mat4.rotateX(mount1.MODEL_MATRIX, mount1.MODEL_MATRIX, LIBS.degToRad(-90));
+    glMatrix.mat4.rotateX(mount2.MODEL_MATRIX, mount2.MODEL_MATRIX, LIBS.degToRad(-90));
 
 
     console.log(time);
